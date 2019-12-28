@@ -1,0 +1,26 @@
+OUTPUT_DIR=out
+
+minify:
+    if [ ! -d $OUTPUT_DIR ]; then
+        mkdir $OUTPUT_DIR
+        echo "$OUTPUT_DIR dir created"
+    fi
+    pyminifier -o "${OUTPUT_DIR}/$1" $1
+
+compile: minify
+    py2hex "${OUTPUT_DIR}/$1"
+
+upload: compile
+    microbit="/media/${USER}/MICROBIT/"
+    if [ ! -d $microbit ]; then
+        echo "$microbit not exists. micro:bit device is probably not connected"
+    else
+        hexfile="${1/.py/.hex}"
+        cp "${OUTPUT_DIR}/$hexfile" $microbit
+    fi
+
+upload_fast:
+    uflash $1
+
+clean:
+    rm -rf $OUTPUT_DIR

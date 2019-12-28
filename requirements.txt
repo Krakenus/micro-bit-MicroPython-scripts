@@ -1,0 +1,6 @@
+bake-cli
+microfs
+microrepl
+pseudo-microbit
+pyminifier
+uflash
