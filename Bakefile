@@ -1,5 +1,8 @@
 OUTPUT_DIR=out
 
+microbit="/media/${USER}/MICROBIT/"
+
+
 minify:
     if [ ! -d $OUTPUT_DIR ]; then
         mkdir $OUTPUT_DIR
@@ -7,11 +10,22 @@ minify:
     fi
     pyminifier -o "${OUTPUT_DIR}/$1" $1
 
+upload:
+    if [ ! -d $microbit ]; then
+        echo "$microbit not exists. micro:bit device is probably not connected"
+    else
+        for file in "$@"; do
+            echo "uploading $file"
+            bake minify $file
+            base_name="$(basename $file)"
+            ufs put "$OUTPUT_DIR/$base_name"
+        done
+    fi
+
 compile: minify
     py2hex "${OUTPUT_DIR}/$1"
 
-upload: compile
-    microbit="/media/${USER}/MICROBIT/"
+flash: compile
     if [ ! -d $microbit ]; then
         echo "$microbit not exists. micro:bit device is probably not connected"
     else
@@ -19,8 +33,19 @@ upload: compile
         cp "${OUTPUT_DIR}/$hexfile" $microbit
     fi
 
-upload_fast:
-    uflash $1
+flash_fast:
+    if [ ! -d $microbit ]; then
+        echo "$microbit not exists. micro:bit device is probably not connected"
+    else
+        uflash $1
+    fi
+
+flash_clean:
+    if [ ! -d $microbit ]; then
+        echo "$microbit not exists. micro:bit device is probably not connected"
+    else
+        uflash
+    fi
 
 clean:
     rm -rf $OUTPUT_DIR
