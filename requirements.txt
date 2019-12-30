@@ -1,6 +1,7 @@
-bake-cli
-microfs
-microrepl
-pseudo-microbit
-pyminifier
-uflash
+bake-cli==0.12.0
+microfs==1.4.1
+microrepl==0.6
+pseudo-microbit==1.8
+pyminifier==2.1
+pyserial==3.4
+uflash==1.3.0
