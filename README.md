@@ -1,9 +1,9 @@
-# BBC micro:bit MicroPython scripts
+# BBC micro:bit MicroPython Bakefile
 
-Bash scripts to make BBC micro:bit MicroPython development more effective. No special IDE or editor is needed. 
+Bakefile with scripts to make BBC micro:bit MicroPython development more effective. No special IDE or editor is needed. 
 Only Bash and Python 3. 
 
-Just write you code and let the scripts to do the rest. 
+Just write you code and let the bake to do the rest. 
 
 ## Installation
 
@@ -11,9 +11,7 @@ Just write you code and let the scripts to do the rest.
 2. Create Python virtualenv the way you prefer (optional)
 3. `pip install -r requirements.txt`
 
-`requirements.txt` contains several tools that can come in handy on they own (like `uflash` or `pyminifier`). 
-
-[bake-cli](https://github.com/kennethreitz/bake) is also installed because it is used to execute scripts. 
+Besides [bake-cli](https://github.com/kennethreitz/bake), `requirements.txt` contains several tools that can come in handy on they own (like `uflash` or `pyminifier`).  
 
 ## Usage
 
@@ -31,7 +29,7 @@ Just write you code and let the scripts to do the rest.
 
 `bake clean` removes the `out/` folder with all minified python sources and hex files
 
-All `flash` and `upload` commands check if micro:bit board is connected. If not they won't execute the upload.
+All `flash` and `upload` commands check if micro:bit board is connected. If it is not available, they won't execute the upload.
 
 All files created by scripts are stored in `out/` folder.
 
@@ -46,3 +44,5 @@ The `upload` command stores given files to micro:bit filesystem without overwrit
 Stored Python program can be split into multiple modules and Python import system works like in classic Python.
 
 Whatever custom script is stored inside the hex file, it can be overridden by uploading file named `main.py` which is always executed instead of script in the firmware if it exists.
+
+Look [here](https://microbit-micropython.readthedocs.io/en/v1.0.1/tutorials/storage.html#mainly-main-py) for more info.
